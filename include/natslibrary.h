@@ -1,0 +1,7 @@
+#ifndef NATSLIBRARY_H
+#define NATSLIBRARY_H
+
+
+
+
+#endif //NATSLIBRARY_H
