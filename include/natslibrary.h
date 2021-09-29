@@ -10,12 +10,6 @@ using std::string;
 using std::vector;
 
 
-struct Date{
-    int day;
-    int month;
-    int year;
-};
-
 class Date{
     private:
         int day;
@@ -48,11 +42,6 @@ class Date{
 
 };
 
-struct Person{
-    string name;
-    string surname;
-    Date data;
-};
 
 class Identity{
 
@@ -88,10 +77,6 @@ class Identity{
 
 };
 
-struct Author{
-    Person author;
-    char genere;
-};
 
 class Author{
 
@@ -117,11 +102,6 @@ class Author{
         void set_genere(string new_g){
             this->genere = new_g;
         }
-};
-
-struct Publisher{
-    Person founder;
-    string name_publisher;
 };
 
 class Publisher{
@@ -153,6 +133,7 @@ class Book{
         int publication_year;
         Publisher* publisher;
         vector <Author> authors;
+        int n_book;
 
     public:
         Book(string title, int pubblication_year, Publisher* publisher, vector<Author> authors){
@@ -160,10 +141,19 @@ class Book{
             this->publication_year = publication_year;
             this->publisher = publisher;
             this->authors = authors;
+            this->n_book = 1;
         }
 
         void add_author(Author& new_author){
             this->authors.push_back(new_author);
+        }
+
+        int get_n_book() const{
+            return this->n_book;
+        }
+
+        void set_n_book(int new_n){
+            this->n_book = new_n;
         }
 
         string as_string() const{
@@ -204,14 +194,37 @@ class Library{
 
     public:
 
-        //Library()
+        Library(){
+            this->books = vector<Book> ();
+            this->library_size = 0;
+        }
         
         void add_book(Book& book){
+
+            for(Book all : books){
+                if(all.as_string() == book.as_string()){
+                    book.set_n_book(book.get_n_book() + 1);
+                    return;
+                }
+            }
+
+            if(library_size == 0){
+                books.push_back(book);
+            }else{
+                int count = 0;
+                for(Book all : books){
+                    if(all.get_p_year() > book.get_p_year()){
+                        count ++;
+                    }else{
+                        books.insert(books.begin() + count, book);
+                    }
+                }
+            }
             
         }
 
         Book* get_book_title(string title){
-
+            
         }
 
         
